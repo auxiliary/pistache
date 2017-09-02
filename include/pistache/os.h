@@ -10,9 +10,13 @@
 #include <chrono>
 #include <vector>
 #include <bitset>
+
 #include <sched.h>
-#include "flags.h"
-#include "common.h"
+
+#include <pistache/flags.h>
+#include <pistache/common.h>
+
+namespace Pistache {
 
 typedef int Fd;
 
@@ -135,3 +139,4 @@ private:
     int event_fd;
 };
 
+} // namespace Pistache

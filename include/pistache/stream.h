@@ -13,7 +13,10 @@
 #include <vector>
 #include <limits>
 #include <iostream>
-#include "os.h"
+
+#include <pistache/os.h>
+
+namespace Pistache {
 
 static constexpr char CR = 0xD;
 static constexpr char LF = 0xA;
@@ -140,10 +143,11 @@ struct Buffer {
         if (fromIndex > len)
             throw std::invalid_argument("Invalid index (> len)");
 
-        char *newData = new char[len - fromIndex];
+        size_t retainedLen = len - fromIndex;
+        char *newData = new char[retainedLen];
         std::copy(data + fromIndex, data + len, newData);
 
-        return Buffer(newData, len - fromIndex, true);
+        return Buffer(newData, retainedLen, true);
     }
 
     const char* const data;
@@ -332,3 +336,5 @@ bool match_until(std::initializer_list<char> chars, StreamCursor& cursor, CaseSe
 bool match_double(double* val, StreamCursor& cursor);
 
 void skip_whitespaces(StreamCursor& cursor);
+
+} // namespace Pistache
